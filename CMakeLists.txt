@@ -31,7 +31,12 @@ include_directories("./include/libopenshot-audio")
 include_directories("./include/libopenshot")
 include_directories("./include/libopenshot/Qt")
 
-link_directories("./lib")
+IF (WIN32)
+    link_directories("./lib/win32")
+ELSEIF (APPLE)
+    link_directories("./lib/mac")
+ELSE (UNIX)
+ENDIF()
 
 if(ANDROID)
   add_library(YYSportEditer SHARED
@@ -39,16 +44,16 @@ if(ANDROID)
     MainWindow.cpp
     MainWindow.h
     MainWindow.ui
-	AudioPlaybackThread.cpp
+    AudioPlaybackThread.cpp
     VideoCacheThread.h
     AudioPlaybackThread.h
-	VideoPlaybackThread.cpp
-	VideoPlaybackThread.h
+    VideoPlaybackThread.cpp
+    VideoPlaybackThread.h
     VideoRenderer.cpp
     PlayerDemo.cpp
-	VideoRenderer.h
+    VideoRenderer.h
     PlayerDemo.h
-	VideoRenderWidget.cpp
+    VideoRenderWidget.cpp
     PlayerPrivate.cpp
     VideoRenderWidget.h
     PlayerPrivate.h
@@ -60,16 +65,16 @@ else()
     MainWindow.cpp
     MainWindow.h
     MainWindow.ui
-	AudioPlaybackThread.cpp
+    AudioPlaybackThread.cpp
     VideoCacheThread.h
     AudioPlaybackThread.h
-	VideoPlaybackThread.cpp
-	VideoPlaybackThread.h
+    VideoPlaybackThread.cpp
+    VideoPlaybackThread.h
     VideoRenderer.cpp
     PlayerDemo.cpp
-	VideoRenderer.h
+    VideoRenderer.h
     PlayerDemo.h
-	VideoRenderWidget.cpp
+    VideoRenderWidget.cpp
     PlayerPrivate.cpp
     VideoRenderWidget.h
     PlayerPrivate.h
@@ -78,8 +83,10 @@ else()
 endif()
 
 IF (WIN32)
+    link_directories("./lib/win32")
     target_link_libraries(YYSportEditer libgomp.dll.a libopenshot.dll.a libopenshot-audio.dll.a Qt5::Widgets)
 ELSEIF (APPLE)
+    link_directories("./lib/mac")
     target_link_libraries(YYSportEditer libopenshot.dylib libopenshot-audio.dylib Qt5::Widgets)
 ELSE (UNIX)
     target_link_libraries(YYSportEditer libopenshot.dylib libopenshot-audio.dylib Qt5::Widgets)
