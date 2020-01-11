@@ -1,0 +1,60 @@
+git clone https://github.com/OpenShot/libopenshot-audio.git
+cd libopenshot-audio
+mkdir build
+cd build
+cmake -d -G "Unix Makefiles" -DCMAKE_CXX_COMPILER=clang++ -DCMAKE_C_COMPILER=clang ../ -D"CMAKE_BUILD_TYPE:STRING=Release" 
+
+#debug
+#add to CMakeLists.txt
+add_definitions("-DJUCE_FORCE_DEBUG")
+
+cmake -d -G "Unix Makefiles" -DCMAKE_CXX_COMPILER=clang++ -DCMAKE_C_COMPILER=clang ../ -D"CMAKE_BUILD_TYPE:STRING=Debug" -D_JUCE_FORCE_DEBUG=1
+make
+cp /Users/admin/Downloads/project/libopenshot-audio/build/*.dylib /Users/admin/Downloads/project/TYMovieEditor/lib/Debug
+
+
+cp /Users/admin/Downloads/project/libopenshot-audio/build
+cp /Users/admin/Downloads/project/libopenshot-audio/build/*.dylib /Users/admin/Downloads/project/TYMovieEditor/lib/Release
+
+sudo make install
+
+pip install pyzmq
+
+Git clone https://github.com/zeromq/cppzmq.git
+cd cppzmq
+./ci_build.sh
+cd ./libzmq-build
+Sudo make install
+
+export C_INCLUDE_PATH=$C_INCLUDE_PATH:/Users/admin/Downloads/project/cppzmq
+
+export CPLUS_INCLUDE_PATH=$CPLUS_INCLUDE_PATH:/usr/local/include/:/usr/local/Cellar/jsoncpp/1.9.1/include/Users/admin/Downloads/project/cppzmq:/Users/admin/Downloads/project/cppzmq
+
+export LIBRARY_PATH=$LIBRARY_PATH:/Users/admin/Library:/usr/local/lib/
+
+
+git clone https://github.com/OpenShot/libopenshot.git
+cd libopenshot
+mkdir build
+cd build
+cd /Users/admin/Downloads/project/libopenshot/build
+
+
+cmake -G "Unix Makefiles" -DCMAKE_CXX_COMPILER=/usr/bin/g++ -DCMAKE_C_COMPILER=/usr/bin/gcc -DCMAKE_PREFIX_PATH=/usr/local/opt/qt/lib/cmake/Qt5/ -DPYTHON_INCLUDE_DIR=/usr/local/Cellar/python/3.7.5/Frameworks/Python.framework/Versions/3.7/include/python3.7m/ -DPYTHON_LIBRARY=/usr/local/Cellar/python/3.7.5/Frameworks/Python.framework/Versions/3.7/lib/libpython3.7.dylib -DPython_FRAMEWORKS=/usr/local/Cellar/python/3.7.5/Frameworks/Python.framework/ ../ -D"CMAKE_BUILD_TYPE:STRING=Release"
+
+#debug
+#add to CMakeLists.txt
+add_definitions("-DJUCE_FORCE_DEBUG")
+cp ./src/*.dylib  /Users/admin/Downloads/project/TYMovieEditor/lib/Debug
+cmake -G "Unix Makefiles" -DCMAKE_CXX_COMPILER=/usr/bin/g++ -DCMAKE_C_COMPILER=/usr/bin/gcc -DCMAKE_PREFIX_PATH=/usr/local/opt/qt/lib/cmake/Qt5/ -DPYTHON_INCLUDE_DIR=/usr/local/Cellar/python/3.7.5/Frameworks/Python.framework/Versions/3.7/include/python3.7m/ -DPYTHON_LIBRARY=/usr/local/Cellar/python/3.7.5/Frameworks/Python.framework/Versions/3.7/lib/libpython3.7.dylib -DPython_FRAMEWORKS=/usr/local/Cellar/python/3.7.5/Frameworks/Python.framework/ ../ -D"CMAKE_BUILD_TYPE:STRING=Debug" -D"CMAKE_BUILD_TYPE:STRING=JUCE_FORCE_DEBUG"
+修改倒数第二行：（添加空格）
+sudo vi /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.14.sdk/System/Library/Frameworks/Ruby.framework/Headers/ruby/ruby/config.h
+
+第365行：
+sudo vi /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.14.sdk/System/Library/Frameworks/Ruby.framework/Headers/ruby/ruby/config.h
+
+-- Install configuration: "Debug"
+-- Up-to-date: /usr/local/include/libopenshot/OpenShotVersion.h
+-- Installing: /usr/local/lib/python3.7/site-packages/_openshot.so
+-- Up-to-date: /usr/local/lib/python3.7/site-packages/openshot.py
+

@@ -24,19 +24,18 @@ set(CMAKE_CXX_STANDARD_REQUIRED ON)
 #    endif()
 #endif()
 
-find_package(Qt5 COMPONENTS Widgets REQUIRED)
+#find_package(Qt5 COMPONENTS Widgets REQUIRED)
+find_package(Qt5Widgets)
 
 include_directories("./include")
 include_directories("./include/libopenshot-audio")
 include_directories("./include/libopenshot")
 include_directories("./include/libopenshot/Qt")
+include_directories("./include/mac/zmq")
+include_directories("/usr/local/include")
 
-IF (WIN32)
-    link_directories("./lib/win32")
-ELSEIF (APPLE)
-    link_directories("./lib/mac")
-ELSE (UNIX)
-ENDIF()
+#add_definitions("-DJUCE_FORCE_DEBUG")
+#ADD_DEFINITIONS(-DNODEBUG)
 
 if(ANDROID)
   add_library(YYSportEditer SHARED
@@ -44,20 +43,20 @@ if(ANDROID)
     MainWindow.cpp
     MainWindow.h
     MainWindow.ui
-    AudioPlaybackThread.cpp
-    VideoCacheThread.h
-    AudioPlaybackThread.h
-    VideoPlaybackThread.cpp
-    VideoPlaybackThread.h
-    VideoRenderer.cpp
+    #AudioPlaybackThread.cpp
+    #VideoCacheThread.h
+    #AudioPlaybackThread.h
+    #VideoPlaybackThread.cpp
+    #VideoPlaybackThread.h
+    #VideoRenderer.cpp
     PlayerDemo.cpp
-    VideoRenderer.h
+    #VideoRenderer.h
     PlayerDemo.h
-    VideoRenderWidget.cpp
-    PlayerPrivate.cpp
-    VideoRenderWidget.h
-    PlayerPrivate.h
-    VideoCacheThread.cpp
+    VideoWidget.cpp
+    #PlayerPrivate.cpp
+    #VideoRenderWidget.h
+    #PlayerPrivate.h
+    #VideoCacheThread.cpp
   )
 else()
   add_executable(YYSportEditer
@@ -65,20 +64,20 @@ else()
     MainWindow.cpp
     MainWindow.h
     MainWindow.ui
-    AudioPlaybackThread.cpp
-    VideoCacheThread.h
-    AudioPlaybackThread.h
-    VideoPlaybackThread.cpp
-    VideoPlaybackThread.h
-    VideoRenderer.cpp
+    #AudioPlaybackThread.cpp
+    #VideoCacheThread.h
+    #AudioPlaybackThread.h
+    #VideoPlaybackThread.cpp
+    #VideoPlaybackThread.h
+    #VideoRenderer.cpp
     PlayerDemo.cpp
-    VideoRenderer.h
+    #VideoRenderer.h
     PlayerDemo.h
-    VideoRenderWidget.cpp
-    PlayerPrivate.cpp
-    VideoRenderWidget.h
-    PlayerPrivate.h
-    VideoCacheThread.cpp
+    VideoWidget.cpp
+    #PlayerPrivate.cpp
+    #VideoRenderWidget.h
+    #PlayerPrivate.h
+    #VideoCacheThread.cpp
   )
 endif()
 
@@ -87,7 +86,7 @@ IF (WIN32)
     target_link_libraries(YYSportEditer libgomp.dll.a libopenshot.dll.a libopenshot-audio.dll.a Qt5::Widgets)
 ELSEIF (APPLE)
     link_directories("./lib/mac")
-    target_link_libraries(YYSportEditer libopenshot.dylib libopenshot-audio.dylib Qt5::Widgets)
+    target_link_libraries(YYSportEditer libgomp.1.dylib libopenshot.0.2.3.dylib libopenshot-audio.0.1.8.dylib Qt5::Widgets)
 ELSE (UNIX)
     target_link_libraries(YYSportEditer libopenshot.dylib libopenshot-audio.dylib Qt5::Widgets)
 ENDIF()

@@ -38,9 +38,20 @@ PlayerDemo::PlayerDemo(QWidget *parent)
     : QWidget(parent)
     , vbox(new QVBoxLayout(this))
     , menu(new QMenuBar(this))
-    , video(new VideoRenderWidget(this))
-    , player(new openshot::QtPlayer(video->GetRenderer()))
+    , video(new VideoWidget(this))
+    , player(new openshot::QtPlayer())
+    //, player(new openshot::QtPlayer(video->GetRenderer()))
 {
+
+    int64_t renderer_address = player->GetRendererQObject();
+    player->SetQWidget((int64_t)video);
+    QObject *renderer = (QObject*)(renderer_address);
+    if (!renderer) {
+        Q_ASSERT(false);
+    }
+    connect(renderer, SIGNAL(present(const QImage&)), video, SLOT(present(const QImage&)));
+
+
     setWindowTitle("OpenShot Player");
 
     menu->setNativeMenuBar(false);
@@ -59,6 +70,7 @@ PlayerDemo::PlayerDemo(QWidget *parent)
     // Accept keyboard event
     setFocusPolicy(Qt::StrongFocus);
 
+    open(true);
 }
 
 PlayerDemo::~PlayerDemo()
@@ -147,7 +159,7 @@ void PlayerDemo::keyPressEvent(QKeyEvent *event)
 void PlayerDemo::open(bool checked)
 {
 	// Get filename of media files
-    const QString filename = QFileDialog::getOpenFileName(this, "Open Video File");
+    const QString filename = "/Users/admin/Downloads/project/YYSportEditer/BLACKPINK_Kill_This_Love.mp4";//QFileDialog::getOpenFileName(this, "Open Video File");
     if (filename.isEmpty()) return;
 
     // Create FFmpegReader and open file
@@ -158,4 +170,6 @@ void PlayerDemo::open(bool checked)
 
     // Play video
     player->Play();
+
+    //AudioDeviceManagerSingleton::Instance()->CloseAudioDevice();
 }

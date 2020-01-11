@@ -40,7 +40,7 @@
 #include <QApplication>
 #include <PlayerBase.h>
 
-#include "VideoRenderWidget.h"
+#include "VideoWidget.h"
 
 // Define the QtPlayer without including it (due to build issues with Qt moc / Qt macros)
 namespace openshot
@@ -95,7 +95,7 @@ private:
 private:
     QVBoxLayout *vbox = nullptr;
     QMenuBar *menu = nullptr;
-    VideoRenderWidget *video = nullptr;
+    VideoWidget *video = nullptr;
     openshot::QtPlayer *player = nullptr;
 
     openshot::Timeline *m_timeline = nullptr;
